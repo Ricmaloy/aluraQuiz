@@ -10,11 +10,9 @@ const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
     padding: 0;
-    /* New styles */
     display: flex;
     flex-direction: column;
     font-family: 'Lato', sans-serif;
-    // Deixa branco no começo
     color: ${({ theme }) => theme.colors.contrastText};
   }
   html, body {
@@ -25,6 +23,69 @@ const GlobalStyle = createGlobalStyle`
     display: flex;
     flex-direction: column;
   }
+
+  @keyframes SaberShadow {
+    0% {
+        box-shadow: 1px 0px 20px 0px #f00;
+    }
+    50% {
+        box-shadow: 1px 0px 20px 5px #f00;
+    }
+    100% {
+      box-shadow: 1px 0px 20px 0px #f00;
+    }
+  }
+
+  @keyframes SaberLoad {
+    0% {
+        width: 0%
+    }
+    100% {
+      width: 80%
+    }
+  }
+
+  @keyframes counter {
+  0% {
+    counter-increment: count 0;
+  }
+  10% {
+    counter-increment: count 10;
+  }
+  20% {
+    counter-increment: count 20;
+  }
+  30% {
+    counter-increment: count 30;
+  }
+  40% {
+    counter-increment: count 40;
+  }
+  50% {
+    counter-increment: count 50;
+  }
+  60% {
+    counter-increment: count 60;
+  }
+  70% {
+    counter-increment: count 70;
+  }
+  80% {
+    counter-increment: count 80;
+  }
+  90% {
+    counter-increment: count 90;
+  }
+  98% {
+    counter-increment: count 100;
+  }
+  98% {
+    counter-increment: count 100;
+  }
+  100% {
+    content: 100;
+  }
+}
 `;
 
 const { theme } = db;
@@ -34,7 +95,7 @@ export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>The CSS Quiz</title>
+        <title>How much you know about Star Wars ?</title>
         <link rel="shortcut icon" href={db.ico} type="image/x-icon" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet" />

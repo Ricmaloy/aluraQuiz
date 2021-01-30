@@ -1,61 +1,21 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 
 import { useRouter } from 'next/router';
 
+import { motion } from 'framer-motion';
+
 import db from '../db.json';
-import QuizLogo from '../src/components/QuizLogo';
 import Widget from '../src/components/Widget';
 import QuizBackground from '../src/components/QuizBackground';
-// import Footer from '../src/components/Footer';
+import QuizContainer from '../src/components/QuizContainer';
+import Input from '../src/components/Input';
+import Button from '../src/components/Button';
+import Link from '../src/components/Link';
+
+import QuizLogo from '../src/components/QuizLogo';
+
+import Footer from '../src/components/Footer';
 import GitHubCorner from '../src/components/GitHubCorner';
-
-export const QuizContainer = styled.div`
-  width: 100%;
-  max-width: 350px;
-  padding-top: 45px;
-  margin: auto 10%;
-  @media screen and (max-width: 500px) {
-    margin: auto;
-    padding: 15px;
-  }
-`;
-
-export const QuizNameInput = styled.input`
-  width: 100%;
-
-  font-size: 14px;
-  font-family: 'Lato', sans-serif;
-  font-weight: 400;
-
-  color: #000;
-
-  padding: 10px 15px;
-  border-radius: 5px;
-  border-color: #DADADA;
-
-  &:focus {
-    outline: none;
-
-    color: #000;
-  }
-`;
-
-export const QuizNameButton = styled.button`
-  width: 100%;
-
-  padding: 10px 16px;
-  margin-top: 20px;
-
-  color: #fff;
-  background-color: #29b6f6;
-  text-align: center;
-  font-family: Lato;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 16px;
-  letter-spacing: 1.25px;
-`;
 
 export default function Home() {
   const router = useRouter();
@@ -66,38 +26,96 @@ export default function Home() {
       <QuizBackground backgroundImage={db.bg}>
         <QuizContainer>
           <QuizLogo />
-          <Widget>
+          <Widget
+            as={motion.section}
+            transition={{ delay: 0, duration: 0.5 }}
+            variants={{
+              show: { opacity: 1, x: '0' },
+              hidden: { opacity: 0, x: '-100%' },
+            }}
+            initial="hidden"
+            animate="show"
+          >
             <Widget.Header>
-              <h1>The CSS is Awesome</h1>
+              <h1>The Star Wars Master Quiz</h1>
             </Widget.Header>
             <Widget.Content>
-              <p>Teste seus conhecimentos em CSS e veja quantos layouts você consegue quebrar</p>
-              <form onSubmit={function (infosDoEvento) {
+              <p>
+                Teste os seus conhecimentos sobre Star Wars e veja se
+                você realmente é um verdadeiro fã!
+              </p>
+              <form onSubmit={(infosDoEvento) => {
                 infosDoEvento.preventDefault();
                 router.push(`/quiz?name=${playerName}`);
               }}
               >
-                <QuizNameInput
+                <Input
+                  name="nomedousuario"
                   placeholder="Me fala seu nome"
-                  onChange={(info) => {
-                    setPlayerName(info.target.value);
-                  }}
+                  onChange={(info) => { setPlayerName(info.target.value); }}
+                  value={playerName}
                 />
-                <QuizNameButton type="submit" disabled={playerName.length === 0}>
+                <Button type="submit" disabled={playerName.length === 0}>
                   Jogar
-                </QuizNameButton>
+                </Button>
               </form>
             </Widget.Content>
           </Widget>
-          <Widget>
+          <Widget
+            as={motion.section}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            variants={{
+              show: { opacity: 1, x: '0' },
+              hidden: { opacity: 0, x: '-100%' },
+            }}
+            initial="hidden"
+            animate="show"
+          >
             <Widget.Header>
               <h1>Quiz da galera</h1>
             </Widget.Header>
             <Widget.Content>
-              <p>Lorem ipsum</p>
+              <ul>
+                {db.external.map((linkExterno) => {
+                  const [projectName, githubUser] = linkExterno
+                    .replace(/\//g, '')
+                    .replace('https:', '')
+                    .replace('.vercel.app', '')
+                    .split('.');
+
+                  return (
+                    <li
+                      key={linkExterno}
+                    >
+                      <Link
+                        href={`/quiz/${projectName}___${githubUser}?name=${playerName}`}
+                        style={{ textDecoration: 'none' }}
+                      >
+                        <Widget.Topic
+                          as={Button}
+                          type="button"
+                          disabled={playerName.trim().length === 0}
+                        >
+                          {`${githubUser}/${projectName}`}
+                        </Widget.Topic>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
             </Widget.Content>
           </Widget>
-          {/* <Footer /> */}
+          <Footer
+            as={motion.footer}
+            style={{ marginBottom: '25px' }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            variants={{
+              show: { opacity: 1, y: '0' },
+              hidden: { opacity: 0, y: '100%' },
+            }}
+            initial="hidden"
+            animate="show"
+          />
         </QuizContainer>
         <GitHubCorner projectUrl="https://github.com/Ricmaloy" />
       </QuizBackground>
