@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 const Widget = styled.div`
+  width: 380px;
+  height: fit-content;
   margin-bottom: 24px;
   margin-top: 24px;
   border: 1px solid ${({ theme }) => theme.colors.primary};
@@ -45,6 +47,10 @@ Widget.Content = styled.div`
   ul {
     list-style: none;
     padding: 0;
+  }
+
+  li {
+    margin: 3px 0;
   }
 `;
 

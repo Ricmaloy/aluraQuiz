@@ -24,99 +24,101 @@ export default function Home() {
   return (
     <>
       <QuizBackground backgroundImage={db.bg}>
-        <QuizContainer>
-          <QuizLogo />
-          <Widget
-            as={motion.section}
-            transition={{ delay: 0, duration: 0.5 }}
-            variants={{
-              show: { opacity: 1, x: '0' },
-              hidden: { opacity: 0, x: '-100%' },
-            }}
-            initial="hidden"
-            animate="show"
-          >
-            <Widget.Header>
-              <h1>The Star Wars Master Quiz</h1>
-            </Widget.Header>
-            <Widget.Content>
-              <p>
-                Teste os seus conhecimentos sobre Star Wars e veja se
-                você realmente é um verdadeiro fã!
-              </p>
-              <form onSubmit={(infosDoEvento) => {
-                infosDoEvento.preventDefault();
-                router.push(`/quiz?name=${playerName}`);
+        <div style={{ display: 'flex' }}>
+          <QuizContainer>
+            <QuizLogo />
+            <Widget
+              as={motion.section}
+              transition={{ delay: 0, duration: 0.5 }}
+              variants={{
+                show: { opacity: 1, x: '0' },
+                hidden: { opacity: 0, x: '-100%' },
               }}
-              >
-                <Input
-                  name="nomedousuario"
-                  placeholder="Me fala seu nome"
-                  onChange={(info) => { setPlayerName(info.target.value); }}
-                  value={playerName}
-                />
-                <Button type="submit" disabled={playerName.length === 0}>
-                  Jogar
-                </Button>
-              </form>
-            </Widget.Content>
-          </Widget>
-          <Widget
-            as={motion.section}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            variants={{
-              show: { opacity: 1, x: '0' },
-              hidden: { opacity: 0, x: '-100%' },
-            }}
-            initial="hidden"
-            animate="show"
-          >
-            <Widget.Header>
-              <h1>Quiz da galera</h1>
-            </Widget.Header>
-            <Widget.Content>
-              <ul>
-                {db.external.map((linkExterno) => {
-                  const [projectName, githubUser] = linkExterno
-                    .replace(/\//g, '')
-                    .replace('https:', '')
-                    .replace('.vercel.app', '')
-                    .split('.');
+              initial="hidden"
+              animate="show"
+            >
+              <Widget.Header>
+                <h1>The Star Wars Master Quiz</h1>
+              </Widget.Header>
+              <Widget.Content>
+                <p>
+                  Teste os seus conhecimentos sobre Star Wars e veja se
+                  você realmente é um verdadeiro fã!
+                </p>
+                <form onSubmit={(infosDoEvento) => {
+                  infosDoEvento.preventDefault();
+                  router.push(`/quiz?name=${playerName}`);
+                }}
+                >
+                  <Input
+                    name="nomedousuario"
+                    placeholder="Me fala seu nome"
+                    onChange={(info) => { setPlayerName(info.target.value); }}
+                    value={playerName}
+                  />
+                  <Button type="submit" disabled={playerName.length === 0}>
+                    Jogar
+                  </Button>
+                </form>
+              </Widget.Content>
+            </Widget>
+            <Widget
+              as={motion.section}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              variants={{
+                show: { opacity: 1, x: '0' },
+                hidden: { opacity: 0, x: '-100%' },
+              }}
+              initial="hidden"
+              animate="show"
+            >
+              <Widget.Header>
+                <h1>Quiz da galera</h1>
+              </Widget.Header>
+              <Widget.Content>
+                <ul>
+                  {db.external.map((linkExterno) => {
+                    const [projectName, githubUser] = linkExterno
+                      .replace(/\//g, '')
+                      .replace('https:', '')
+                      .replace('.vercel.app', '')
+                      .split('.');
 
-                  return (
-                    <li
-                      key={linkExterno}
-                    >
-                      <Link
-                        href={`/quiz/${projectName}___${githubUser}?name=${playerName}`}
-                        style={{ textDecoration: 'none' }}
+                    return (
+                      <li
+                        key={linkExterno}
                       >
-                        <Widget.Topic
-                          as={Button}
-                          type="button"
-                          disabled={playerName.trim().length === 0}
+                        <Link
+                          href={`/quiz/${projectName}___${githubUser}?name=${playerName}`}
+                          style={{ textDecoration: 'none' }}
                         >
-                          {`${githubUser}/${projectName}`}
-                        </Widget.Topic>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </Widget.Content>
-          </Widget>
-          <Footer
-            as={motion.footer}
-            style={{ marginBottom: '25px' }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            variants={{
-              show: { opacity: 1, y: '0' },
-              hidden: { opacity: 0, y: '100%' },
-            }}
-            initial="hidden"
-            animate="show"
-          />
-        </QuizContainer>
+                          <Widget.Topic
+                            as={Button}
+                            type="button"
+                            disabled={playerName.trim().length === 0}
+                          >
+                            {`${githubUser}/${projectName}`}
+                          </Widget.Topic>
+                        </Link>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </Widget.Content>
+            </Widget>
+            <Footer
+              as={motion.footer}
+              style={{ marginBottom: '25px' }}
+              transition={{ delay: 0.5, duration: 0.5 }}
+              variants={{
+                show: { opacity: 1, y: '0' },
+                hidden: { opacity: 0, y: '100%' },
+              }}
+              initial="hidden"
+              animate="show"
+            />
+          </QuizContainer>
+        </div>
         <GitHubCorner projectUrl="https://github.com/Ricmaloy" />
       </QuizBackground>
     </>

@@ -46,44 +46,38 @@ const GlobalStyle = createGlobalStyle`
   }
 
   @keyframes counter {
-  0% {
-    counter-increment: count 0;
+  1% {
+    content: '0';
   }
   10% {
-    counter-increment: count 10;
+    content: '10';
   }
   20% {
-    counter-increment: count 20;
+    content: '20';
   }
   30% {
-    counter-increment: count 30;
+    content: '30';
   }
   40% {
-    counter-increment: count 40;
+    content: '40';
   }
   50% {
-    counter-increment: count 50;
+    content: '50';
   }
   60% {
-    counter-increment: count 60;
+    content: '60';
   }
   70% {
-    counter-increment: count 70;
+    content: '70';
   }
   80% {
-    counter-increment: count 80;
+    content: '80';
   }
   90% {
-    counter-increment: count 90;
-  }
-  98% {
-    counter-increment: count 100;
-  }
-  98% {
-    counter-increment: count 100;
+    content: '90';
   }
   100% {
-    content: 100;
+    content: '100';
   }
 }
 `;

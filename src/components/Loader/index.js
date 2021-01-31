@@ -12,7 +12,8 @@ const LightBlade = styled.div`
   width: 80%;
   height: 10px;
 
-  margin-top: 16%;
+  margin-top: 45px;
+
   background-color: red;
 
   border-top-right-radius: 5px;

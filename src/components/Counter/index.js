@@ -7,7 +7,7 @@ const CountContainer = styled.div`
 
   &::before {
     font: 800 20px system-ui;
-    content: counter(count);
+    content: '100';
     animation: counter 5s ;
   }
 

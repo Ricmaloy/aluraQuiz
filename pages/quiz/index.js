@@ -1,4 +1,5 @@
 /* eslint-disable linebreak-style */
+/* eslint-disable global-require */
 /* eslint-disable indent */
 /* eslint-disable quotes */
 /* eslint-disable no-nested-ternary */
@@ -6,10 +7,10 @@
 /* eslint-disable linebreak-style */
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { motion } from 'framer-motion';
 
 import db from '../../db.json';
 
-// import QuizLogo from '../src/components/QuizLogo';
 import Widget from '../../src/components/Widget';
 import QuizBackground from '../../src/components/QuizBackground';
 import QuizContainer from '../../src/components/QuizContainer';
@@ -17,6 +18,7 @@ import AlternativesForm from '../../src/components/AlternativesForm';
 import Button from '../../src/components/Button';
 import Loader from '../../src/components/Loader';
 import Counter from '../../src/components/Counter';
+import Ranking from '../../src/components/Ranking';
 
 function LoadingWidget() {
   return (
@@ -44,7 +46,16 @@ function ResultWidget({ results }) {
             : `GABARITOU O TESTE HEIN, TU É UM VERDADEIRO FÃ`;
 
   return (
-    <Widget>
+    <Widget
+      as={motion.section}
+      transition={{ delay: 0.4, duration: 0.5 }}
+      variants={{
+        show: { opacity: 1, y: '0' },
+        hidden: { opacity: 0, y: '-50%' },
+      }}
+      initial="hidden"
+      animate="show"
+    >
       <Widget.Header>
         Resultados
       </Widget.Header>
@@ -179,7 +190,6 @@ export default function QuizPage() {
   function addResult(result) {
     setResults([...results, result]);
   }
-
   const questionIndex = currentQuestion;
 
   const totalQuestions = db.questions.length;
@@ -205,7 +215,6 @@ export default function QuizPage() {
     <>
       <QuizBackground backgroundImage={db.bg}>
         <QuizContainer>
-          {/* <QuizLogo /> */}
 
           {screenState === screenStates.QUIZ && (
             <QuestionWidget
@@ -226,8 +235,12 @@ export default function QuizPage() {
           {
             screenState === screenStates.RESULT && (
               <>
-                <ResultWidget results={results} />
-                {/* <h1>Teste</h1> */}
+                <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <ResultWidget
+                    results={results}
+                  />
+                  <Ranking />
+                </div>
               </>
             )
           }
